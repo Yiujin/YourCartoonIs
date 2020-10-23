@@ -1,0 +1,2 @@
+include ':app', 'OpenCV4', 'openCV'
+rootProject.name='Your Cartoon Is'

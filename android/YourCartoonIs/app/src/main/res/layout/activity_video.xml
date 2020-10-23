@@ -1,0 +1,70 @@
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_weight="1"
+        android:background="@color/up_background"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+
+            android:text="변환할 동영상을 업로드해주세요!"
+            android:textSize="20sp" />
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="364dp"
+            android:layout_gravity="center"
+            android:layout_height="273dp" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_weight="1"
+        android:background="@color/down_background"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/album"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="170dp"
+            android:textColor="#D06EB8"
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/bingre"
+            android:layout_gravity="center"
+            android:onClick="onClick"
+            android:text="album" />
+
+
+        <Button
+            android:id="@+id/submit_video"
+            android:layout_width="136dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:visibility="invisible"
+            android:layout_gravity="center"
+            android:textColor="#D06EB8"
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/bingre"
+            android:onClick="onClick"
+            android:text="변환하기" />
+    </LinearLayout>
+
+
+    ></LinearLayout>

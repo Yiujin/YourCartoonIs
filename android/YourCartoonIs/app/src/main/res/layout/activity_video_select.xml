@@ -1,0 +1,33 @@
+<LinearLayout
+    xmlns:android = "http://schemas.android.com/apk/res/android"
+    android:layout_width = "match_parent"
+    android:layout_height = "match_parent"
+    android:background="@color/up_background"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="300dp">
+        <LinearLayout
+            android:id="@+id/linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+        />
+    </ScrollView>
+
+    <Button
+        android:id="@+id/gonext"
+        android:layout_gravity="center"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:textColor="#D06EB8"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/bingre"
+        android:text="다음으로 넘어가기"
+        android:textSize = "15sp"/>
+
+
+    ></LinearLayout>
