@@ -13,7 +13,7 @@ import kotlinx.android.synthetic.main.frame_recved.*
 import java.io.InputStream
 
 class Pictransfer : AppCompatActivity() {
-    private var KeyImage = ArrayList<Bitmap>(1)
+    private var KeyImage = ArrayList<Bitmap>(2)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub)
@@ -32,7 +32,7 @@ class Pictransfer : AppCompatActivity() {
                 try {
                     var input: InputStream? = contentResolver.openInputStream(currentImageUrl!!)
                     var bitmap = BitmapFactory.decodeStream(input)
-                    KeyImage[0] = bitmap
+                    //KeyImage[0] = bitmap
                     //var bitmap = BitmapFactory.decodeStream(input)
                     imageView2.setImageBitmap(bitmap)
                     submit.visibility = VISIBLE
@@ -42,11 +42,11 @@ class Pictransfer : AppCompatActivity() {
             }
         }
         submit.setOnClickListener(){
-            setContentView(R.layout.frame_recved)
-            val ip = "52.151.59.153"
-            val port = 8081
-            val cons = ConnectServer(this.applicationContext,ip,port,KeyImage,receved_linear)
-            cons.execute()
+            setContentView(R.layout.collage)
+            //val ip = "52.151.59.153"
+            //val port = 8081
+            //val cons = ConnectServer(this.applicationContext,ip,port,KeyImage,receved_linear)
+            //cons.execute()
         }
     }
 

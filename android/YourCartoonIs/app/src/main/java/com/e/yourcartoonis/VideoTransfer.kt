@@ -10,37 +10,20 @@ import android.util.Log
 import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_sub.*
 import kotlinx.android.synthetic.main.activity_video.*
 import kotlinx.android.synthetic.main.activity_video_select.*
 import org.opencv.android.Utils
 import org.opencv.core.Mat
 import wseemann.media.FFmpegMediaMetadataRetriever
 import android.app.ProgressDialog
-import android.content.res.AssetFileDescriptor
 import android.content.res.AssetManager
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Handler
-import android.os.Trace
-import android.renderscript.ScriptGroup
-import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
 import android.widget.LinearLayout
-import androidx.core.view.marginLeft
-import kotlinx.android.synthetic.main.frame_recved.*
-import kotlinx.android.synthetic.main.imview.*
-import org.opencv.core.CvType.CV_32FC1
-import org.tensorflow.lite.DataType
-import org.tensorflow.lite.Interpreter
-import org.tensorflow.lite.support.image.ImageProcessor
-import org.tensorflow.lite.support.image.TensorImage
-import org.tensorflow.lite.support.image.ops.ResizeOp
-import org.tensorflow.lite.support.tensorbuffer.TensorBuffer
+import androidx.fragment.app.Fragment
+import com.e.yourcartoonis.Collage.Collage_001
 import java.io.*
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
 
 class VideoTransfer : AppCompatActivity() {
     val model_name = "yolov4-tiny-416.tflite"
@@ -54,6 +37,8 @@ class VideoTransfer : AppCompatActivity() {
     var handler = Handler()
     var thread = Runnable { testprogress?.cancel() }
     val KeyImage = ArrayList<Bitmap>()
+    var recv_image : ArrayList<Bitmap>? = null
+    var CollageList : ArrayList<Int>? = null
 
     external fun extractKeyFrame(matArrayaddr:LongArray,size:Int) : Array<IntArray>
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -182,15 +167,29 @@ class VideoTransfer : AppCompatActivity() {
             }
         }
         gonext.setOnClickListener() {
-            setContentView(R.layout.frame_recved)
+            setContentView(R.layout.collage)
             var transfer_image=ArrayList<Bitmap>()
             for(i in 0..(KeyImage.size-1)){
                 if(check[i]) transfer_image.add(KeyImage[i])
             }
+
             val ip = "52.151.59.153"
             val port = 8081
-            val cons = ConnectServer(this.applicationContext, ip, port, transfer_image, receved_linear)
-            cons.execute()
+            val cons = ConnectServer(this.applicationContext, ip, port, transfer_image)
+            recv_image = cons.execute().get()
+            while(recv_image == null){}
+            supportFragmentManager.beginTransaction().replace(R.id.fragment1,
+                Collage_001()
+            ).commit()
+            supportFragmentManager.beginTransaction().replace(R.id.fragment2,
+                SelectCollage()
+            ).commit()
         }
+    }
+    fun getBitmap() : ArrayList<Bitmap>?{
+        return recv_image
+    }
+    fun changeFragment(collage : Fragment){
+        supportFragmentManager.beginTransaction().replace(R.id.fragment1,collage).commit()
     }
 }

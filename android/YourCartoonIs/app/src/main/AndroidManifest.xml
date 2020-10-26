@@ -29,7 +29,7 @@
         <activity android:name=".VideoTransfer">
         </activity>
 
-    <activity android:name=".ConnectServer">
+    <activity android:name=".MakeCollage">
     </activity>
         <activity
             android:name="android.app.NativeActivity"

@@ -6,8 +6,8 @@
 6
 7    <uses-sdk
 8        android:minSdkVersion="21"
-8-->C:\Users\chun\AndroidStudioProjects\YourCartoonIs\openCV\java\AndroidManifest.xml
+8-->C:\Users\hsl32\Desktop\git_practice\project\android\YourCartoonIs\openCV\java\AndroidManifest.xml
 9        android:targetSdkVersion="29" />
-9-->C:\Users\chun\AndroidStudioProjects\YourCartoonIs\openCV\java\AndroidManifest.xml
+9-->C:\Users\hsl32\Desktop\git_practice\project\android\YourCartoonIs\openCV\java\AndroidManifest.xml
 10
 11</manifest>
