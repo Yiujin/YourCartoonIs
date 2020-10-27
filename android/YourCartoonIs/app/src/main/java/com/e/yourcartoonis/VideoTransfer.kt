@@ -18,11 +18,14 @@ import wseemann.media.FFmpegMediaMetadataRetriever
 import android.app.ProgressDialog
 import android.content.res.AssetManager
 import android.graphics.Color
+import android.graphics.ImageFormat.JPEG
 import android.graphics.PorterDuff
 import android.os.Handler
+import android.view.DragEvent
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import com.e.yourcartoonis.Collage.Collage_001
+import kotlinx.android.synthetic.main.collage.*
 import java.io.*
 
 class VideoTransfer : AppCompatActivity() {
@@ -102,15 +105,18 @@ class VideoTransfer : AppCompatActivity() {
                     //media.setDataSource(path)
                     var time = media.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)
                     var videotime = ((Integer.parseInt(time)/1000)-1)*3
-
-                    var MatList = Array<Mat>(videotime,{ Mat() })
-                    var bitmapList = arrayOfNulls<Bitmap>(videotime)
-                    var MatAddrList = LongArray(videotime,{0})
+                    var bitmapList = ArrayList<Bitmap>()
                     for(i in 0..videotime-1) {
-                        bitmapList[i] = media.getFrameAtTime(i.toLong()*1000000/3)
-                        //Log.v("###","${i} th frame time : ${i.toLong()*1000000/3}")
-                        if(bitmapList[i] == null)
+                        val frame = media.getFrameAtTime(i.toLong()*1000000/3)
+                        if( frame == null)
                             break
+                        bitmapList.add(frame)
+                        //Log.v("###","${i} th frame time : ${i.toLong()*1000000/3}")
+                    }
+                    val len = bitmapList.size
+                    var MatList = Array<Mat>(len,{ Mat() })
+                    var MatAddrList = LongArray(len,{0})
+                    for (i in 0..len-1){
                         Utils.bitmapToMat(bitmapList[i],MatList[i])
                         MatAddrList[i] = MatList[i].nativeObjAddr
                     }
@@ -167,7 +173,6 @@ class VideoTransfer : AppCompatActivity() {
             }
         }
         gonext.setOnClickListener() {
-            setContentView(R.layout.collage)
             var transfer_image=ArrayList<Bitmap>()
             for(i in 0..(KeyImage.size-1)){
                 if(check[i]) transfer_image.add(KeyImage[i])
@@ -178,12 +183,37 @@ class VideoTransfer : AppCompatActivity() {
             val cons = ConnectServer(this.applicationContext, ip, port, transfer_image)
             recv_image = cons.execute().get()
             while(recv_image == null){}
+            var path = ArrayList<String>(recv_image!!.size)
+            saveRecvtmpfile(recv_image,path)
+
+            setContentView(R.layout.collage)
             supportFragmentManager.beginTransaction().replace(R.id.fragment1,
                 Collage_001()
             ).commit()
             supportFragmentManager.beginTransaction().replace(R.id.fragment2,
                 SelectCollage()
             ).commit()
+            for( i in 0..recv_image!!.size-1){
+                val im = ImageView(this.applicationContext)
+                im.adjustViewBounds = true
+                im.layoutParams=LinearLayout.LayoutParams(300,LinearLayout.LayoutParams.WRAP_CONTENT)
+                im.setPadding(5,5,5,5)
+                im.setBackgroundColor(Color.parseColor("#00000000"))
+                im.setImageBitmap(recv_image!![i])
+                recv_img.addView(im)
+                //im.setOnClickListener { Log.e("###","click") }
+            }
+        }
+    }
+    fun saveRecvtmpfile(recv : ArrayList<Bitmap>?,path: ArrayList<String>){
+        val len = recv!!.size-1
+        for(i in 0..len){
+            val tmpFile = File.createTempFile("${i}","jpg")
+            tmpFile.deleteOnExit()
+            val output = FileOutputStream(tmpFile)
+            recv[i].compress(Bitmap.CompressFormat.JPEG,90,output)
+            path[i] = tmpFile.absolutePath
+            output.close()
         }
     }
     fun getBitmap() : ArrayList<Bitmap>?{

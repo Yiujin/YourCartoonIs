@@ -41,12 +41,12 @@ class Collage_001 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val imList = (activity as VideoTransfer).getBitmap()
         val scroll = arrayListOf(scroll1,scroll2,scroll3)
-        for (i in 0..2){
+        /*for (i in 0..2){
             var imView = ImageView(this.context)
             imView.layoutParams = LinearLayout.LayoutParams(1000, 1000)
             imView.setImageBitmap(Bitmap.createScaledBitmap(imList!![i], 1000, 1000, true))
             scroll[i].addView(imView)
-        }
+        }*/
     }
 
     companion object {

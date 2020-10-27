@@ -13,6 +13,23 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
     <FrameLayout
+        android:id="@+id/recv_img_frag"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/fragment1"
+        app:layout_constraintBottom_toTopOf="@id/fragment2">
+        <HorizontalScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/recv_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+            </LinearLayout>
+        </HorizontalScrollView>
+    </FrameLayout>
+    <FrameLayout
         android:id="@+id/fragment2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
