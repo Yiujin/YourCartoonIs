@@ -43,10 +43,10 @@ class SelectCollage : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         select1.setOnClickListener {
-            (activity as VideoTransfer).changeFragment(Collage_001())
+            (activity as MakeCollage).changeFragment(Collage_001())
         }
         select2.setOnClickListener {
-            (activity as VideoTransfer).changeFragment(Collage_002())
+            (activity as MakeCollage).changeFragment(Collage_002())
         }
     }
 

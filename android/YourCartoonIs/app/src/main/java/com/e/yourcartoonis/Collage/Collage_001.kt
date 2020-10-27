@@ -8,8 +8,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.e.yourcartoonis.DragListener
+import com.e.yourcartoonis.MakeCollage
 import com.e.yourcartoonis.R
 import com.e.yourcartoonis.VideoTransfer
+import kotlinx.android.synthetic.main.collage.*
 import kotlinx.android.synthetic.main.collage_001.*
 
 // TODO: Rename parameter arguments, choose names that match
@@ -39,14 +42,11 @@ class Collage_001 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imList = (activity as VideoTransfer).getBitmap()
-        val scroll = arrayListOf(scroll1,scroll2,scroll3)
-        /*for (i in 0..2){
-            var imView = ImageView(this.context)
-            imView.layoutParams = LinearLayout.LayoutParams(1000, 1000)
-            imView.setImageBitmap(Bitmap.createScaledBitmap(imList!![i], 1000, 1000, true))
-            scroll[i].addView(imView)
-        }*/
+        val imList = (activity as MakeCollage).getBitmap()
+        val im = arrayListOf(scroll1,scroll2,scroll3)
+        for (i in 0..2){
+            im[i].setOnDragListener(DragListener(context!!))
+        }
     }
 
     companion object {

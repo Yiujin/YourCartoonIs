@@ -88,7 +88,7 @@ class VideoTransfer : AppCompatActivity() {
                         val output = FileOutputStream(tmpFile)
                         var read = 0
                         val buffer = ByteArray(4*1024)
-
+                        Log.e("###","start create mp4 tmp file")
                         while (true) {
                             read = input!!.read(buffer,0,4*1024 -2)
                             if( read == -1)
@@ -96,6 +96,7 @@ class VideoTransfer : AppCompatActivity() {
                             output.write(buffer,0,read)
                         }
                         output.close()
+                        Log.e("###","end create mp4 tmp file")
                     var context: Context = this.applicationContext
                     var path = tmpFile.absolutePath
                     media.setDataSource(path)
@@ -183,43 +184,25 @@ class VideoTransfer : AppCompatActivity() {
             val cons = ConnectServer(this.applicationContext, ip, port, transfer_image)
             recv_image = cons.execute().get()
             while(recv_image == null){}
-            var path = ArrayList<String>(recv_image!!.size)
+            var path = ArrayList<String>()
             saveRecvtmpfile(recv_image,path)
 
-            setContentView(R.layout.collage)
-            supportFragmentManager.beginTransaction().replace(R.id.fragment1,
-                Collage_001()
-            ).commit()
-            supportFragmentManager.beginTransaction().replace(R.id.fragment2,
-                SelectCollage()
-            ).commit()
-            for( i in 0..recv_image!!.size-1){
-                val im = ImageView(this.applicationContext)
-                im.adjustViewBounds = true
-                im.layoutParams=LinearLayout.LayoutParams(300,LinearLayout.LayoutParams.WRAP_CONTENT)
-                im.setPadding(5,5,5,5)
-                im.setBackgroundColor(Color.parseColor("#00000000"))
-                im.setImageBitmap(recv_image!![i])
-                recv_img.addView(im)
-                //im.setOnClickListener { Log.e("###","click") }
-            }
+            val intent = Intent(this,MakeCollage::class.java)
+            intent.putStringArrayListExtra("path",path)
+            startActivity(intent)
+
+
         }
     }
     fun saveRecvtmpfile(recv : ArrayList<Bitmap>?,path: ArrayList<String>){
         val len = recv!!.size-1
         for(i in 0..len){
-            val tmpFile = File.createTempFile("${i}","jpg")
+            val tmpFile = File.createTempFile("recv_image_${i}","jpg")
             tmpFile.deleteOnExit()
             val output = FileOutputStream(tmpFile)
             recv[i].compress(Bitmap.CompressFormat.JPEG,90,output)
-            path[i] = tmpFile.absolutePath
+            path.add(tmpFile.absolutePath)
             output.close()
         }
-    }
-    fun getBitmap() : ArrayList<Bitmap>?{
-        return recv_image
-    }
-    fun changeFragment(collage : Fragment){
-        supportFragmentManager.beginTransaction().replace(R.id.fragment1,collage).commit()
     }
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.e.yourcartoonis.MakeCollage
 import com.e.yourcartoonis.R
 import com.e.yourcartoonis.VideoTransfer
 import kotlinx.android.synthetic.main.collage_002.*
@@ -44,7 +45,7 @@ class Collage_002 : Fragment() {
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imList = (activity as VideoTransfer).getBitmap()
+        val imList = (activity as MakeCollage).getBitmap()
         val scroll = arrayListOf(scroll1,scroll2,scroll3)
         for (i in 0..2){
             var imView = ImageView(this.context)
