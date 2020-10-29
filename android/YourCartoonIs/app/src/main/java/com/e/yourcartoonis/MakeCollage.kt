@@ -15,7 +15,7 @@ import android.widget.LinearLayout
 import android.widget.ScrollView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import com.e.yourcartoonis.Collage.Collage_001
+import com.e.yourcartoonis.Collage.Collage_3_001
 import kotlinx.android.synthetic.main.collage.*
 import java.io.Serializable
 
@@ -32,7 +32,7 @@ class MakeCollage :AppCompatActivity(){
 
         setContentView(R.layout.collage)
         supportFragmentManager.beginTransaction().replace(R.id.fragment1,
-            Collage_001()
+            Collage_3_001()
         ).commit()
         supportFragmentManager.beginTransaction().replace(R.id.fragment2,
             SelectCollage()

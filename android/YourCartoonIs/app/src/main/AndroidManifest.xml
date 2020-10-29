@@ -31,6 +31,10 @@
 
     <activity android:name=".MakeCollage">
     </activity>
+        <activity android:name=".StickerActivity" >
+        </activity>
+        <activity android:name=".AfterRecvActivity" >
+        </activity>
         <activity
             android:name="android.app.NativeActivity"
             android:configChanges="orientation|keyboardHidden"

@@ -10,10 +10,13 @@ import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sub.*
 import kotlinx.android.synthetic.main.frame_recved.*
+import java.io.File
+import java.io.FileOutputStream
 import java.io.InputStream
 
 class Pictransfer : AppCompatActivity() {
     private var KeyImage = ArrayList<Bitmap>(2)
+    private lateinit var bitmap: Bitmap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sub)
@@ -31,7 +34,7 @@ class Pictransfer : AppCompatActivity() {
 
                 try {
                     var input: InputStream? = contentResolver.openInputStream(currentImageUrl!!)
-                    var bitmap = BitmapFactory.decodeStream(input)
+                    bitmap = BitmapFactory.decodeStream(input)
                     //KeyImage[0] = bitmap
                     //var bitmap = BitmapFactory.decodeStream(input)
                     imageView2.setImageBitmap(bitmap)
@@ -42,11 +45,19 @@ class Pictransfer : AppCompatActivity() {
             }
         }
         submit.setOnClickListener(){
-            setContentView(R.layout.collage)
             //val ip = "52.151.59.153"
             //val port = 8081
             //val cons = ConnectServer(this.applicationContext,ip,port,KeyImage,receved_linear)
             //cons.execute()
+            val tmpFile = File.createTempFile("recv_image_${0}","jpg")
+            tmpFile.deleteOnExit()
+            val output = FileOutputStream(tmpFile)
+            bitmap.compress(Bitmap.CompressFormat.JPEG,90,output)
+            val path = arrayListOf(tmpFile.absolutePath)
+            output.close()
+            val intent = Intent(this,StickerActivity::class.java)
+            intent.putStringArrayListExtra("path",path)
+            startActivity(intent)
         }
     }
 

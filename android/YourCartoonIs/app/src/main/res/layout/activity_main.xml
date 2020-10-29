@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
-
+    android:background="@drawable/background"
     android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_gravity="center"
-        android:background="#6B708C"
+
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -23,7 +23,6 @@
             app:srcCompat="@drawable/main_pic" />
 
 
-
     </LinearLayout>
 
     <LinearLayout
@@ -32,7 +31,6 @@
         android:layout_gravity="center"
         android:layout_weight="1"
 
-        android:background="#BBC1E2"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -40,23 +38,27 @@
 
         <Button
             android:id="@+id/pictransfer"
-            android:layout_width="67dp"
-            android:layout_height="44dp"
-            android:layout_gravity="center"
-            android:layout_marginHorizontal="70dp"
-            android:background="@drawable/photo"
-
-            android:onClick="onClick" />
-
-        <Button
-            android:id="@+id/videotransfer"
-            android:layout_width="142dp"
+            android:layout_width="0dp"
+            android:layout_weight="1"
             android:layout_height="61dp"
-
             android:layout_gravity="center"
             android:fontFamily="@font/bingre"
             android:onClick="onClick"
-            android:textColor="@color/down_background"
+            android:textColor="@color/black"
+            android:background="@drawable/button_shape"
+
+            android:text="사진" />
+
+        <Button
+            android:id="@+id/videotransfer"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="61dp"
+            android:layout_marginLeft="30dp"
+            android:layout_gravity="center"
+            android:fontFamily="@font/bingre"
+            android:onClick="onClick"
+            android:textColor="@color/black"
             android:background="@drawable/button_shape"
 
             android:text="동영상" />

@@ -24,13 +24,14 @@ import android.os.Handler
 import android.view.DragEvent
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
-import com.e.yourcartoonis.Collage.Collage_001
+import com.e.yourcartoonis.Collage.Collage_3_001
 import kotlinx.android.synthetic.main.collage.*
 import java.io.*
 
 class VideoTransfer : AppCompatActivity() {
     val model_name = "yolov4-tiny-416.tflite"
     val label_file = "coco.txt"
+    var adapter : SelectAdapter? = null
     var asset_manager: AssetManager? = null
     init{
         System.loadLibrary("native-lib")
@@ -139,7 +140,9 @@ class VideoTransfer : AppCompatActivity() {
                         if(compare[i][1] >= 0.01*videotime)
                             KeyImage.add(bitmapList[compare[i][0]]!!)
                     }
-                    var imViewList = Array<ImageView>(KeyImage.size) { ImageView(this) }
+                    adapter = SelectAdapter(context,KeyImage)
+                    gridView.adapter = adapter
+                    /*var imViewList = Array<ImageView>(KeyImage.size) { ImageView(this) }
                     check=Array<Boolean>(KeyImage.size){false}
                     for(i in 0..(KeyImage.size-1)){
                         imViewList[i].adjustViewBounds = true
@@ -167,7 +170,7 @@ class VideoTransfer : AppCompatActivity() {
                     //Utils.matToBitmap(MResult,bitmap)
                     //image_view.setImageBitmap(bitmap)
 
-
+*/
                 }catch(e:Exception) {
                     e.printStackTrace()
                 }
@@ -175,6 +178,7 @@ class VideoTransfer : AppCompatActivity() {
         }
         gonext.setOnClickListener() {
             var transfer_image=ArrayList<Bitmap>()
+            check = adapter!!.getKey()
             for(i in 0..(KeyImage.size-1)){
                 if(check[i]) transfer_image.add(KeyImage[i])
             }
@@ -187,7 +191,7 @@ class VideoTransfer : AppCompatActivity() {
             var path = ArrayList<String>()
             saveRecvtmpfile(recv_image,path)
 
-            val intent = Intent(this,MakeCollage::class.java)
+            val intent = Intent(this,AfterRecvActivity::class.java)
             intent.putStringArrayListExtra("path",path)
             startActivity(intent)
 

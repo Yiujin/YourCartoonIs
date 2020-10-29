@@ -7,4 +7,16 @@
     <color name="up_background">#6B708C</color>
     <color name="down_background">#BBC1E2</color>
     <color name="line">#F7AEEA</color>
+    <color name= "pastel1">#E9F3F9</color>
+    <color name= "pastel2">#CDE2EF</color>
+    <color name= "pastel3">#CAC5D8</color>
+    <color name= "pastel4">#FEE5E8</color>
+    <color name= "pastel5">#FAEBEF</color>
+    <color name= "sea1">#286B7B</color>
+    <color name= "sea2">#214753</color>
+    <color name= "sea3">#548BA1</color>
+    <color name= "sea4">#96C4D8</color>
+    <color name= "sea5">#CBE3EE</color>
+    <color name= "sea6">#E0EEF7</color>
+
 </resources>
