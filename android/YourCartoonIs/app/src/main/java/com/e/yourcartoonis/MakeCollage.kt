@@ -10,6 +10,7 @@ import android.media.Image
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
@@ -70,5 +71,8 @@ class MakeCollage :AppCompatActivity(){
     }
     fun changeFragment(collage : Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.fragment1,collage).commit()
+    }
+    fun startSticker(frameLayout: FrameLayout) {
+
     }
 }

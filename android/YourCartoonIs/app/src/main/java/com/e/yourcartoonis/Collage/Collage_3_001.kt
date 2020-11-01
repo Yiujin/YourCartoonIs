@@ -2,12 +2,14 @@ package com.e.yourcartoonis.Collage
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.view.GestureDetector
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.core.view.GestureDetectorCompat
 import com.e.yourcartoonis.DragListener
 import com.e.yourcartoonis.MakeCollage
 import com.e.yourcartoonis.R
@@ -25,7 +27,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Collage_001.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Collage_3_001 : Fragment() {
+class Collage_3_001 : CollageSuper() {
     // TODO: Rename and change types of parameters
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,8 +46,15 @@ class Collage_3_001 : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         val imList = (activity as MakeCollage).getBitmap()
         val im = arrayListOf(scroll1,scroll2,scroll3)
+        val frame = arrayListOf(c1,c2,scroll3)
         for (i in 0..2){
             im[i].setOnDragListener(DragListener(context!!))
+            /*
+            frame[i].setOnTouchListener { view, motionEvent ->
+                val gestureDetector = GestureDetectorCompat(this.context,MyGestureListener())
+                gestureDetector.onTouchEvent(motionEvent)
+                true
+            }*/
         }
     }
 

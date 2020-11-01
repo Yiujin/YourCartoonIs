@@ -30,7 +30,7 @@ class StickerActivity  : AppCompatActivity() {
         stickerView = sticker_linear
         decodeTmpBitmapList(path,recv_image)
         target_image.setImageBitmap(Bitmap.createScaledBitmap(recv_image[0], 1000, 1000, true))
-        sticker_image_frame.setOnDragListener(DragListener(applicationContext))
+        sticker_image_frame.setOnDragListener(DragListenerSticker(applicationContext))
         ShowSticker(applicationContext,stickerView!!).execute()
     }
     private class ShowSticker(c: Context,sticker:LinearLayout): AsyncTask<Void, Void, String>() {
@@ -65,7 +65,7 @@ class StickerActivity  : AppCompatActivity() {
                     val ShadowBuilder = View.DragShadowBuilder(v)
                     v.startDrag(dragData,ShadowBuilder,null,0)
                 }
-                im.setOnDragListener(DragListener(context))
+                im.setOnDragListener(DragListenerSticker(context))
                 stickerView!!.addView(im)
             }
             super.onProgressUpdate(*values)

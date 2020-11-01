@@ -14,7 +14,7 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
 
-class DragListener(c:Context) : View.OnDragListener {
+class DragListenerSticker(c:Context) : View.OnDragListener {
     private val c : Context
     init{
         this.c = c
@@ -29,14 +29,6 @@ class DragListener(c:Context) : View.OnDragListener {
                 Log.e("###", "enter ${p0}")
             }
             DragEvent.ACTION_DROP -> {
-                if(p0 is ScrollView){
-                    val im = ImageView(c)
-                    val path = p1.clipData.getItemAt(0).text
-                    im.layoutParams=LinearLayout.LayoutParams(1000,1000)
-                    im.setImageBitmap(Bitmap.createScaledBitmap(decodeTmpBitmap(path.toString()), 1000, 1000, true))
-                    p0.addView(im)
-                }
-                /*
                 if(p0 is FrameLayout){
                     val assestManager = c.assets
                     val path = p1.clipData.getItemAt(0).text
@@ -71,7 +63,6 @@ class DragListener(c:Context) : View.OnDragListener {
                     p0.addView(im)
                     Log.e("###","drop frame success")
                     }
-                    */
                 Log.e("###", "drop ${p0}")
             }
             DragEvent.ACTION_DRAG_EXITED -> {

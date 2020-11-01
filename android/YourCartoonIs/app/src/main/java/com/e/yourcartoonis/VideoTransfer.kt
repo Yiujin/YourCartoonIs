@@ -191,7 +191,7 @@ class VideoTransfer : AppCompatActivity() {
             var path = ArrayList<String>()
             saveRecvtmpfile(recv_image,path)
 
-            val intent = Intent(this,AfterRecvActivity::class.java)
+            val intent = Intent(this,MakeCollage::class.java)
             intent.putStringArrayListExtra("path",path)
             startActivity(intent)
 
