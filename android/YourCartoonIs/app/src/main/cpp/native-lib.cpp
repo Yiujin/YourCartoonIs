@@ -128,10 +128,12 @@ Java_com_e_yourcartoonis_VideoTransfer_extractKeyFrame(JNIEnv *env, jobject inst
         similarity = 0.7*compareHist(hist[i],hist[centroid.back().num],HISTCMP_INTERSECT);
         float sum = 0;
         for(j=0;j<4;j++){
-            sum += (tmp.feature[i] - centroid.back().feature[i])*(tmp.feature[i] - centroid.back().feature[i]);
+            sum += (tmp.feature[j] - centroid.back().feature[j])*(tmp.feature[j] - centroid.back().feature[j]);
         }
         sum = sqrt(sum);
         LOGE(LOG_TAG,"image %d feature sum : %lf",i,sum);
+        //LOGE(LOG_TAG,"    energy : %lf contrast : %lf homogenity : %lf entropy : %lf",tmp.feature[0],tmp.feature[1],tmp.feature[2],tmp.feature[3]);
+        //LOGE(LOG_TAG,"centroid energy : %lf contrast : %lf homogenity : %lf entropy : %lf",centroid.back().feature[0],centroid.back().feature[1],centroid.back().feature[2],centroid.back().feature[3]);
         similarity -= 0.3*sum;
         LOGE(LOG_TAG,"image %d similarity : %lf",i,similarity);
         if(similarity <= 0.7) {
