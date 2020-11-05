@@ -8,9 +8,11 @@ import androidx.fragment.app.Fragment
 import com.e.yourcartoonis.MakeCollage
 
 open class CollageSuper : Fragment() {
-    fun doubleclick(frameLayout: FrameLayout){
-        (activity as MakeCollage).startSticker(frameLayout)
+    open fun setScrollTouch(){
+
     }
+    open fun goLayout(){}
+    open fun stickerDone(id : Int){}
     protected class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
 
         override fun onDown(event: MotionEvent): Boolean {

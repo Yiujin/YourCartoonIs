@@ -5,25 +5,40 @@
     android:layout_height = "match_parent"
     android:background="@drawable/background"
     android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_gravity="center"
+        android:layout_height="235dp"
 
-        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:orientation="vertical">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_marginTop="70dp"
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            app:srcCompat="@drawable/main_pic" />
 
 
     </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="@font/bingre"
+        app:layout_constraintBottom_toTopOf="@id/pictransfer"
+        android:text="         사진을 \n변환하고 싶으시다면?"
+        android:layout_marginBottom="20dp"
+        android:textColor="@color/black"></TextView>
+    <Button
+        android:id="@+id/pictransfer"
+        android:layout_width="175dp"
+        android:layout_height="78dp"
+        android:layout_gravity="center"
+
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/bingre"
+        android:onClick="onClick"
+        android:text="사진변환"
+
+        android:textColor="@color/black" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,37 +46,46 @@
         android:layout_gravity="center"
         android:layout_weight="1"
 
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <Button
-            android:id="@+id/pictransfer"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="61dp"
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:fontFamily="@font/bingre"
-            android:onClick="onClick"
-            android:textColor="@color/black"
-            android:background="@drawable/button_shape"
-
-            android:text="사진" />
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@id/videotransfer"
+            android:text="         영상을 \n변환하고 싶으시다면?"
+            android:layout_marginBottom="20dp"
+            android:textColor="@color/black"></TextView>
 
         <Button
             android:id="@+id/videotransfer"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="61dp"
-            android:layout_marginLeft="30dp"
+            android:layout_width="175dp"
+            android:layout_height="78dp"
             android:layout_gravity="center"
+
+            android:background="@drawable/button_shape"
             android:fontFamily="@font/bingre"
             android:onClick="onClick"
-            android:textColor="@color/black"
-            android:background="@drawable/button_shape"
+            android:text="영상변환"
 
-            android:text="동영상" />
+            android:textColor="@color/black" />
+        <Button
+            android:id="@+id/dummy"
+            android:layout_width="175dp"
+            android:layout_height="78dp"
+            android:layout_gravity="center"
+
+            android:background="@drawable/button_shape"
+            android:fontFamily="@font/bingre"
+            android:onClick="onClick"
+            android:text="dummy"
+
+            android:textColor="@color/black" />
     </LinearLayout>
 
 

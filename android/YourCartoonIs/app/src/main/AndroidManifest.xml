@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_main_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.NoActionBar">
+        android:theme="@style/Theme.AppCompat.NoActionBar"
+        android:requestLegacyExternalStorage="true">
         <activity android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
             <intent-filter>
@@ -27,6 +28,8 @@
         <activity android:name=".Pictransfer" >
         </activity>
         <activity android:name=".VideoTransfer">
+        </activity>
+        <activity android:name=".Dummy">
         </activity>
 
     <activity android:name=".MakeCollage">

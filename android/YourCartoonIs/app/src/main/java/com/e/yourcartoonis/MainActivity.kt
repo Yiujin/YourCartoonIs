@@ -48,5 +48,9 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, VideoTransfer::class.java)
             startActivity(intent)
         }
+        dummy.setOnClickListener {
+            val intent = Intent(this, Dummy::class.java)
+            startActivity(intent)
+        }
     }
 }

@@ -1,14 +1,16 @@
 <LinearLayout
     xmlns:android = "http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width = "match_parent"
     android:layout_height = "match_parent"
     android:background="@drawable/background"
     android:orientation="vertical">
+
     <GridView
         android:id="@+id/gridView"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
-        android:layout_height="300dp"
+        android:layout_height="400dp"
         android:layout_marginTop="100dp"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
@@ -16,17 +18,19 @@
 
     </GridView>
 
+
     <Button
         android:id="@+id/gonext"
-        android:layout_gravity="center"
         android:layout_width="150dp"
         android:layout_height="80dp"
-        android:textColor="#D06EB8"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/gridView"
+        android:layout_marginTop="40dp"
         android:background="@drawable/button_shape"
         android:fontFamily="@font/bingre"
         android:text="다음으로 넘어가기"
-        android:textSize = "15sp"
-        android:layout_marginTop="20dp"/>
+        android:textColor="@color/black"
+        android:textSize="15sp" />
 
 
-    ></LinearLayout>
+</LinearLayout>

@@ -2,18 +2,18 @@ package com.e.yourcartoonis.Collage
 
 import android.graphics.Bitmap
 import android.os.Bundle
+import android.util.Log
 import android.view.GestureDetector
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.ScrollView
 import androidx.core.view.GestureDetectorCompat
-import com.e.yourcartoonis.DragListener
-import com.e.yourcartoonis.MakeCollage
-import com.e.yourcartoonis.R
-import com.e.yourcartoonis.VideoTransfer
+import com.e.yourcartoonis.*
 import kotlinx.android.synthetic.main.collage.*
 import kotlinx.android.synthetic.main.collage_3_001.*
 
@@ -29,7 +29,8 @@ private const val ARG_PARAM2 = "param2"
  */
 class Collage_3_001 : CollageSuper() {
     // TODO: Rename and change types of parameters
-
+    var im : ArrayList<ScrollView>? = null
+    var frameList : ArrayList<View>? =null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -45,19 +46,42 @@ class Collage_3_001 : CollageSuper() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imList = (activity as MakeCollage).getBitmap()
-        val im = arrayListOf(scroll1,scroll2,scroll3)
-        val frame = arrayListOf(c1,c2,scroll3)
+        frameList = arrayListOf(c1,c2,c3)
+        im = arrayListOf(scroll1,scroll2,scroll3)
         for (i in 0..2){
-            im[i].setOnDragListener(DragListener(context!!))
-            /*
-            frame[i].setOnTouchListener { view, motionEvent ->
-                val gestureDetector = GestureDetectorCompat(this.context,MyGestureListener())
-                gestureDetector.onTouchEvent(motionEvent)
-                true
-            }*/
+            im!![i].setOnDragListener(DragListener(context!!))
         }
     }
-
+    override fun setScrollTouch() {
+        for (i in 0..2) {
+            im!![i].setOnTouchListener { view, motionEvent ->
+                Log.e("###","click")
+                for(j in 0..2){
+                    if(i==j)
+                        continue
+                    frameList!![j].visibility = View.INVISIBLE
+                }
+                im!![i].setOnDragListener(null)
+                frameList!![i].setOnDragListener(DragListenerSticker(context!!))
+                (activity as MakeCollage).startSticker(i)
+                frameList!![i].animate().scaleX(2.5f).scaleY(2.5f).setDuration(50).start()
+                true
+            }
+        }
+    }
+    override fun goLayout() {
+        for(i in 0..2){
+            im!![i].setOnTouchListener(null)
+        }
+    }
+    override fun stickerDone(id:Int) {
+        im!![id].setOnDragListener(DragListener(context!!))
+        for(i in 0..2){
+            if(i==id)
+                frameList!![id].animate().scaleX(1f).scaleY(1f).setDuration(50).start()
+            frameList!![i].visibility = View.VISIBLE
+        }
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
