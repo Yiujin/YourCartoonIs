@@ -8,14 +8,18 @@ import android.media.Image
 import android.util.Log
 import android.view.DragEvent
 import android.view.MotionEvent
+import android.view.ScaleGestureDetector
 import android.view.View
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.github.chrisbanes.photoview.PhotoView
 
 class DragListenerSticker(c:Context) : View.OnDragListener {
     private val c : Context
+    private var selectedEntity : View? = null
+    private var ScaleFactor = 1.0f
     init{
         this.c = c
     }
@@ -34,13 +38,17 @@ class DragListenerSticker(c:Context) : View.OnDragListener {
                     val path = p1.clipData.getItemAt(0).text
                     Log.e("###","path : ${path.toString()}")
                     val inputstream = assestManager.open("TomAndJerry/${path.toString()}")
-                    val im = ImageView(c)
+                    val im = StickerView(c)
                     im.x = p1.x
                     im.y = p1.y
-                    im.layoutParams=LinearLayout.LayoutParams(200,200)
+                    im.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,LinearLayout.LayoutParams.WRAP_CONTENT)
                     im.setImageBitmap(Bitmap.createScaledBitmap(BitmapFactory.decodeStream(inputstream), 200,200, true))
                     var outcheck = false
-                    im.setOnTouchListener { view, motionEvent ->
+                    /*im.setOnTouchListener { view, motionEvent ->
+                        selectedEntity = im
+                        val detector = ScaleGestureDetector(c,ScaleListener())
+                        detector.onTouchEvent(motionEvent)
+                        /*
                         when(motionEvent.action){
                             MotionEvent.ACTION_DOWN -> {
                                 outcheck = false
@@ -57,9 +65,9 @@ class DragListenerSticker(c:Context) : View.OnDragListener {
                                     Log.e("###","view removed")
                                 }
                             }
-                        }
+                        }*/
                         true
-                    }
+                    }*/
                     p0.addView(im)
                     Log.e("###","drop frame success")
                     }

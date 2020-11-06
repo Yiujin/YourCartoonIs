@@ -13,6 +13,7 @@ import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.ScrollView
+import com.github.chrisbanes.photoview.PhotoView
 
 class DragListener(c:Context) : View.OnDragListener {
     private val c : Context
@@ -30,7 +31,7 @@ class DragListener(c:Context) : View.OnDragListener {
             }
             DragEvent.ACTION_DROP -> {
                 if(p0 is ScrollView){
-                    val im = ImageView(c)
+                    val im = PhotoView(c)
                     val path = p1.clipData.getItemAt(0).text
                     im.layoutParams=LinearLayout.LayoutParams(1000,1000)
                     im.setImageBitmap(Bitmap.createScaledBitmap(decodeTmpBitmap(path.toString()), 1000, 1000, true))
