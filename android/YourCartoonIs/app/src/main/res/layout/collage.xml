@@ -45,37 +45,48 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"/>
     <FrameLayout
-        android:id="@+id/fragment3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/fragment1"
-        app:layout_constraintBottom_toTopOf="@id/fragment2">
+        app:layout_constraintTop_toBottomOf="@id/fragment1">
+
+        <LinearLayout
+            android:id="@+id/fragment3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fragment1">
+            <LinearLayout
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                <Button
+                    android:id="@+id/im_frag"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="img"/>
+                <Button
+                    android:id="@+id/col_frag"
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="left"
+                    android:text="col"/>
+            </LinearLayout>
+            <FrameLayout
+                android:id="@+id/fragment_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:id="@+id/recv_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                </LinearLayout>
-                <LinearLayout
-                    android:orientation="horizontal"
-                    android:id="@+id/sticker_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible">
-                </LinearLayout>
-            </FrameLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/sticker_img"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="invisible">
+            </LinearLayout>
         </HorizontalScrollView>
+
     </FrameLayout>
-    <FrameLayout
-        android:id="@+id/fragment2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/fragment3"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

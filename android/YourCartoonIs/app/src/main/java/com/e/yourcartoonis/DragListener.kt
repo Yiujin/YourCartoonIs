@@ -30,11 +30,11 @@ class DragListener(c:Context) : View.OnDragListener {
                 Log.e("###", "enter ${p0}")
             }
             DragEvent.ACTION_DROP -> {
-                if(p0 is ScrollView){
+                if(p0 is FrameLayout){
                     val im = PhotoView(c)
                     val path = p1.clipData.getItemAt(0).text
-                    im.layoutParams=LinearLayout.LayoutParams(1000,1000)
-                    im.setImageBitmap(Bitmap.createScaledBitmap(decodeTmpBitmap(path.toString()), 1000, 1000, true))
+                    im.layoutParams=LinearLayout.LayoutParams(p0.width,p0.height)
+                    im.setImageBitmap(Bitmap.createScaledBitmap(decodeTmpBitmap(path.toString()), p0.width, p0.height, true))
                     p0.addView(im)
                 }
                 /*

@@ -44,30 +44,23 @@ class MakeCollage :AppCompatActivity(){
         supportFragmentManager.beginTransaction().replace(R.id.fragment1,
             Collage!!
         ).commit()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment2,
-            SelectCollage()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_img,
+            recv_fragment()
         ).commit()
-        for( i in 0..recv_image.size-1){
-            val im = ImageView(this.applicationContext)
-            im.adjustViewBounds = true
-            im.layoutParams=LinearLayout.LayoutParams(300,LinearLayout.LayoutParams.WRAP_CONTENT)
-            im.setPadding(5,5,5,5)
-            im.setBackgroundColor(Color.parseColor("#00000000"))
-            im.isClickable = false
-            im.setImageBitmap(recv_image[i])
-            recv_img.addView(im)
-            im.tag = path!![i]
-            im.setOnLongClickListener { v: View ->
-                val item = ClipData.Item(v.tag as CharSequence)
-                val dragData = ClipData(
-                    v.tag as CharSequence,
-                    arrayOf(ClipDescription.MIMETYPE_TEXT_PLAIN),
-                    item
-                )
-                val ShadowBuilder = View.DragShadowBuilder(v)
-                v.startDrag(dragData,ShadowBuilder,null,0)
-            }
-            im.setOnDragListener(DragListener(applicationContext))
+
+        im_frag.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_img,
+                recv_fragment()
+            ).commit()
+            im_frag.isClickable = false
+            col_frag.isClickable = true
+        }
+        col_frag.setOnClickListener {
+            supportFragmentManager.beginTransaction().replace(R.id.fragment_img,
+                SelectCollage()
+            ).commit()
+            col_frag.isClickable = false
+            im_frag.isClickable = true
         }
         Layout_Button.setOnClickListener {
             Collage = supportFragmentManager.findFragmentById(R.id.fragment1) as CollageSuper?
@@ -95,8 +88,9 @@ class MakeCollage :AppCompatActivity(){
                 Log.e("###","collage is null")
             }
             sticker_img.visibility = View.INVISIBLE
-            recv_img.visibility = View.VISIBLE
+            sticker_img.removeAllViews()
             sticker_done.visibility = View.INVISIBLE
+            fragment3.visibility = View.VISIBLE
             Collage!!.stickerDone(id)
         }
         save.setOnClickListener {
@@ -141,14 +135,17 @@ class MakeCollage :AppCompatActivity(){
     fun getBitmap() : ArrayList<Bitmap>?{
         return recv_image
     }
+    fun getPath() : ArrayList<String>?{
+        return path
+    }
     fun changeFragment(collage : Fragment){
         supportFragmentManager.beginTransaction().replace(R.id.fragment1,collage).commit()
     }
     fun startSticker(id :Int) {
         save.visibility = View.INVISIBLE
         sticker_done.visibility = View.VISIBLE
-        recv_img.visibility = View.INVISIBLE
         sticker_img.visibility = View.VISIBLE
+        fragment3.visibility = View.INVISIBLE
         this.id = id
         ShowSticker(applicationContext,sticker_img).execute()
     }

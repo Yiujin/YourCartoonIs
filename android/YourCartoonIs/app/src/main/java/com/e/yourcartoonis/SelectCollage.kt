@@ -42,14 +42,18 @@ class SelectCollage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        ShowCollage(context!!,collage_frame).execute()
+        /*
         select1.setOnClickListener {
             (activity as MakeCollage).changeFragment(Collage_3_001())
         }
         select2.setOnClickListener {
             (activity as MakeCollage).changeFragment(Collage_3_002())
-        }
+        }*/
     }
+    fun changeCollage() {
 
+    }
     companion object {
         /**
          * Use this factory method to create a new instance of
