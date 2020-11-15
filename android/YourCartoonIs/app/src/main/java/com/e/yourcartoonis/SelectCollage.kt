@@ -1,13 +1,16 @@
 package com.e.yourcartoonis
 
+import android.media.Image
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.e.yourcartoonis.Collage.Collage_3_001
-import com.e.yourcartoonis.Collage.Collage_3_002
+import android.widget.ImageView
+import com.e.yourcartoonis.Collage.*
 import kotlinx.android.synthetic.main.select_collage.*
+import java.lang.reflect.Method
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -23,6 +26,8 @@ class SelectCollage : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
+    private val CollageList = arrayListOf<CollageSuper>(Collage_3_001(),Collage_3_002(),Collage_3_003())
+    private var ViewList : ArrayList<ImageView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +47,14 @@ class SelectCollage : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        ShowCollage(context!!,collage_frame).execute()
+        ViewList = ShowCollage(context!!,collage_frame).execute().get()
+        while(ViewList == null){}
+        val len = ViewList!!.size
+        for( i in 0..2){
+            ViewList!![i].setOnClickListener {
+                (activity as MakeCollage).changeFragment(CollageList[i])
+            }
+        }
         /*
         select1.setOnClickListener {
             (activity as MakeCollage).changeFragment(Collage_3_001())

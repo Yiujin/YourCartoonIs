@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.e.yourcartoonis.DragListener
 import com.e.yourcartoonis.MakeCollage
 import com.e.yourcartoonis.R
 import com.e.yourcartoonis.VideoTransfer
@@ -23,7 +24,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [Collage_002.newInstance] factory method to
  * create an instance of this fragment.
  */
-class Collage_3_002 : Fragment() {
+class Collage_3_002 : CollageSuper() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -46,12 +47,9 @@ class Collage_3_002 : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val imList = (activity as MakeCollage).getBitmap()
-        val scroll = arrayListOf(scroll1,scroll2,scroll3)
+        frameList = arrayListOf(c1,c2,c3)
         for (i in 0..2){
-            var imView = ImageView(this.context)
-            imView.layoutParams = LinearLayout.LayoutParams(1000, 1000)
-            imView.setImageBitmap(Bitmap.createScaledBitmap(imList!![i], 1000, 1000, true))
-            scroll[i].addView(imView)
+            frameList!![i].setOnDragListener(DragListener(context!!))
         }
     }
     companion object {

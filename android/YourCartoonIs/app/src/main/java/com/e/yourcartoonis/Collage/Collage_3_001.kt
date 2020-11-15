@@ -42,7 +42,6 @@ class Collage_3_001 : CollageSuper() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val imList = (activity as MakeCollage).getBitmap()
         frameList = arrayListOf(c1,c2,c3)
         for (i in 0..2){
             frameList!![i].setOnDragListener(DragListener(context!!))
