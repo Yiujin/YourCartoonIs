@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory
 import android.media.Image
 import android.util.Log
 import android.view.DragEvent
+import android.view.GestureDetector
 import android.view.MotionEvent
 import android.view.View
 import android.widget.FrameLayout
@@ -35,6 +36,7 @@ class DragListener(c:Context) : View.OnDragListener {
                     val path = p1.clipData.getItemAt(0).text
                     im.layoutParams=LinearLayout.LayoutParams(p0.width,p0.height)
                     im.setImageBitmap(Bitmap.createScaledBitmap(decodeTmpBitmap(path.toString()), p0.width, p0.height, true))
+                    im.setOnDoubleTapListener(null)
                     p0.addView(im)
                 }
                 /*

@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <!-- TODO: Update blank fragment layout -->
-    <com.github.florent37.shapeofview.shapes.DiagonalView
+    <com.e.yourcartoonis.MyDiagonal
         android:id="@+id/c1"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,8 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"/>
-    </com.github.florent37.shapeofview.shapes.DiagonalView>
-    <com.github.florent37.shapeofview.shapes.DiagonalView
+    </com.e.yourcartoonis.MyDiagonal>
+    <com.e.yourcartoonis.MyDiagonal
         android:id="@+id/c2"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/c1"
@@ -42,8 +42,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"/>
-    </com.github.florent37.shapeofview.shapes.DiagonalView>
-        <FrameLayout
+    </com.e.yourcartoonis.MyDiagonal>
+        <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c3"
             android:layout_width="match_parent"
             android:layout_height="200dp"
@@ -51,6 +51,10 @@
             app:layout_constraintLeft_toLeftOf="parent"
             android:layout_marginTop="20dp"
             android:background="#FFFFFF">
-        </FrameLayout>
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"/>
+        </com.e.yourcartoonis.MyDiagonal>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
