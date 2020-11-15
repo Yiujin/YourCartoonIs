@@ -80,7 +80,7 @@ class MakeCollage :AppCompatActivity(){
             next_Button.visibility = View.INVISIBLE
             Layout_Button.visibility = View.VISIBLE
             save.visibility = View.VISIBLE
-            Collage!!.setScrollTouch()
+            Collage!!.goSticker()
         }
         sticker_done.setOnClickListener {
             Collage = supportFragmentManager.findFragmentById(R.id.fragment1) as CollageSuper?

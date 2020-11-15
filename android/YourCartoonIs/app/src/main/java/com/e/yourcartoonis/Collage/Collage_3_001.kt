@@ -27,8 +27,6 @@ private const val ARG_PARAM2 = "param2"
  */
 class Collage_3_001 : CollageSuper() {
     // TODO: Rename and change types of parameters
-    var frameList : ArrayList<MyDiagonal>? =null
-    var startXY = Array<Float>(2){1f;2f}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,45 +46,6 @@ class Collage_3_001 : CollageSuper() {
         frameList = arrayListOf(c1,c2,c3)
         for (i in 0..2){
             frameList!![i].setOnDragListener(DragListener(context!!))
-        }
-    }
-    override fun setScrollTouch() {
-        val view = frameList!![0].parent
-        Log.e("###","x,y : ${frameList!![0].x} , ${frameList!![0].y}")
-        for (i in 0..2) {
-            frameList!![i].setIntercept(true)
-            frameList!![i].setOnTouchListener { view, motionEvent ->
-                Log.e("###","click")
-                for(j in 0..2){
-                    if(i==j)
-                        continue
-                    frameList!![j].visibility = View.INVISIBLE
-                }
-                frameList!![i].setOnDragListener(null)
-                frameList!![i].setOnDragListener(DragListenerSticker(context!!))
-                (activity as MakeCollage).startSticker(i)
-                startXY[0] = frameList!![i].x
-                startXY[1] = frameList!![i].y
-                frameList!![i].animate().scaleX(1.5f).scaleY(1.5f).translationX(view.width/2-frameList!![i].x).translationY(view.height/2-frameList!![i].y).setDuration(100).start()
-                frameList!![i].setIntercept(false)
-                true
-            }
-        }
-    }
-    override fun goLayout() {
-        for(i in 0..2){
-            frameList!![i].setOnTouchListener(null)
-            frameList!![i].setIntercept(false)
-        }
-    }
-    override fun stickerDone(id:Int) {
-        frameList!![id].setOnDragListener(DragListener(context!!))
-        for(i in 0..2){
-            if(i==id) {
-                frameList!![i].setIntercept(true)
-                frameList!![id].animate().scaleX(1f).scaleY(1f).x(startXY[0]).y(startXY[1]).setDuration(100).start()
-            }
-            frameList!![i].visibility = View.VISIBLE
         }
     }
     companion object {
