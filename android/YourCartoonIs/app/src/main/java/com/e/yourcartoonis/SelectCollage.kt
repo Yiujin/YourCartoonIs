@@ -26,7 +26,8 @@ class SelectCollage : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    private val CollageList = arrayListOf<CollageSuper>(Collage_3_001(),Collage_3_002(),Collage_3_003())
+    private val CollageList = arrayListOf<CollageSuper>(Collage_3_001(),Collage_3_002(),Collage_3_003(),
+    Collage_3_004(),Collage_4_001(),Collage_4_002(),Collage_4_003(),Collage_4_004())
     private var ViewList : ArrayList<ImageView>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,21 +51,11 @@ class SelectCollage : Fragment() {
         ViewList = ShowCollage(context!!,collage_frame).execute().get()
         while(ViewList == null){}
         val len = ViewList!!.size
-        for( i in 0..2){
+        for( i in 0..6){
             ViewList!![i].setOnClickListener {
                 (activity as MakeCollage).changeFragment(CollageList[i])
             }
         }
-        /*
-        select1.setOnClickListener {
-            (activity as MakeCollage).changeFragment(Collage_3_001())
-        }
-        select2.setOnClickListener {
-            (activity as MakeCollage).changeFragment(Collage_3_002())
-        }*/
-    }
-    fun changeCollage() {
-
     }
     companion object {
         /**

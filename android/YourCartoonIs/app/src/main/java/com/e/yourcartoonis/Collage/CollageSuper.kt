@@ -56,27 +56,4 @@ open class CollageSuper : Fragment() {
             frameList!![i].visibility = View.VISIBLE
         }
     }
-    protected fun DptoFloat(dp: Float) : Float{
-        val metrics = resources.displayMetrics
-        val px : Float = dp * (metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT)
-        return px
-    }
-    protected class MyGestureListener : GestureDetector.SimpleOnGestureListener() {
-
-        override fun onDown(event: MotionEvent): Boolean {
-            return true
-        }
-        override fun onDoubleTapEvent(event: MotionEvent): Boolean {
-            Log.d("###", "onDoubleTapEvent: $event")
-            return true
-        }
-        override fun onFling(
-            event1: MotionEvent,
-            event2: MotionEvent,
-            velocityX: Float,
-            velocityY: Float
-        ): Boolean {
-            return true
-        }
-    }
 }

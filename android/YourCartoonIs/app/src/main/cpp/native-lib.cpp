@@ -39,13 +39,7 @@ Java_com_e_yourcartoonis_MainActivity_ConvertRGBtoGray(
 
     cvtColor(matInput, matResult, COLOR_RGBA2GRAY);
 }
-JNIEXPORT jstring JNICALL
-Java_com_e_yourcartoonis_MainActivity_setText(JNIEnv *env, jobject instance) {
-    return env->NewStringUTF("Hello Jni!");
-}
-double CombineSimilarity(Mat img1,Mat img2){
 
-}
 class centroid_info{
 public:
     int num;

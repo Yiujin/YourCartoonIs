@@ -42,7 +42,7 @@ class Collage_4_003 : CollageSuper() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         frameList = arrayListOf(c1,c2,c3,c4)
-        for (i in 0..4){
+        for (i in 0..3){
             frameList!![i].setOnDragListener(DragListener(context!!))
         }
     }

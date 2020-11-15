@@ -131,15 +131,22 @@ class VideoTransfer : AppCompatActivity() {
                     input!!.close()
                     check_progress=true
                     handler.postDelayed(thread,1000) // 딜레이는 1초
+                    val tmpMatList = ArrayList<Long>()
+                    val tmpIndex = ArrayList<Int>()
                     setContentView(R.layout.activity_video_select)
                     var keysize = 0
                     for (i in 0..(compare.size-1)){
                         val classes = model.detection(MatList[compare[i][0]]!!)
                         if( classes.contains("person"))
                             compare[i][1] += 3
-                        if(compare[i][1] >= 0.01*videotime)
-                            KeyImage.add(bitmapList[compare[i][0]]!!)
+                        if(compare[i][1] >= 0.01*videotime) {
+                            tmpMatList.add(MatList[compare[i][0]].nativeObjAddr)
+                            tmpIndex.add(compare[i][0])
+                        }
                     }
+                    compare = extractKeyFrame(tmpMatList.toLongArray(),clustersize)
+                    for(i in 0..(compare.size-1))
+                        KeyImage.add(bitmapList[tmpIndex[compare[i][0]]])
                     adapter = SelectAdapter(context,KeyImage)
                     gridView.adapter = adapter
                     /*var imViewList = Array<ImageView>(KeyImage.size) { ImageView(this) }

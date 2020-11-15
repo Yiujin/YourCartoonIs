@@ -36,7 +36,7 @@ class YoloClassifier(context : Context, modelName:String, labelName:String,kinds
     private val isGPU = true
     private val BATCH_SIZE = 1
     private val PIXEL_SIZE = 3
-    private var threshold = 0.5
+    private var threshold = 0.3
 
     init{
         this.context = context

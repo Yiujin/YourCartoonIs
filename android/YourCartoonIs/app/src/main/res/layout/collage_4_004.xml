@@ -4,13 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".Collage.Collage_4_004">
+    tools:context=".Collage.Collage_4_004"
+    android:layout_marginTop="20dp"
+    android:layout_marginLeft="20dp"
+    android:layout_marginRight="20dp"
+    android:layout_marginBottom="20dp">
     <!-- 주석 내용 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.github.florent37.shapeofview.shapes.DiagonalView
+        <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c1"
             android:layout_width="220dp"
             android:layout_height="250dp"
@@ -24,14 +28,13 @@
             app:shape_diagonal_direction="right"
             app:shape_diagonal_position="right">
 
-            <ScrollView
-                android:id="@+id/scroll1"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"></ScrollView>
-        </com.github.florent37.shapeofview.shapes.DiagonalView>
+                android:background="#FFFFFF"/>
+        </com.e.yourcartoonis.MyDiagonal>
 
-        <com.github.florent37.shapeofview.shapes.DiagonalView
+        <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c2"
             android:layout_width="210dp"
             android:layout_height="250dp"
@@ -43,15 +46,14 @@
             app:shape_diagonal_direction="right"
             app:shape_diagonal_position="left">
 
-            <ScrollView
-                android:id="@+id/scroll2"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"></ScrollView>
-        </com.github.florent37.shapeofview.shapes.DiagonalView>
+                android:background="#FFFFFF"/>
+        </com.e.yourcartoonis.MyDiagonal>
 
 
-        <com.github.florent37.shapeofview.shapes.DiagonalView
+        <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c3"
             android:layout_width="220dp"
             android:layout_height="250dp"
@@ -66,32 +68,30 @@
             app:shape_diagonal_direction="right"
             app:shape_diagonal_position="right">
 
-            <ScrollView
-                android:id="@+id/scroll3"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"></ScrollView>
-        </com.github.florent37.shapeofview.shapes.DiagonalView>
+                android:background="#FFFFFF"/>
+        </com.e.yourcartoonis.MyDiagonal>
 
-        <com.github.florent37.shapeofview.shapes.DiagonalView
+        <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c4"
             android:layout_width="210dp"
             android:layout_height="250dp"
             android:layout_marginTop="30dp"
             android:translationX="-10dp"
-            app:layout_constraintLeft_toRightOf="parent"
-            app:layout_constraintRight_toRightOf="@id/c3"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/c3"
             app:layout_constraintTop_toBottomOf="@id/c2"
             app:shape_diagonal_angle="10"
             app:shape_diagonal_direction="right"
             app:shape_diagonal_position="left">
 
-            <ScrollView
-                android:id="@+id/scroll4"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"></ScrollView>
-        </com.github.florent37.shapeofview.shapes.DiagonalView>
+                android:background="#FFFFFF"/>
+        </com.e.yourcartoonis.MyDiagonal>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
