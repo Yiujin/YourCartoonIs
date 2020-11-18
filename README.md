@@ -18,3 +18,4 @@ System
 ## References
 
 + https://github.com/hunglc007/tensorflow-yolov4-tflite
++ Janwe, N. J., & Bhoyar, K. K. (2016). Video key-frame extraction using unsupervised clustering and mutual comparison. International Journal of Image Processing (IJIP), 10(2), 73-84.
