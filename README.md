@@ -11,6 +11,6 @@ System
 
 ### 1. Key Frame Extraction
 
-<p align = "center"><img src="https://user-images.githubusercontent.com/60774392/99548935-82546b00-29fc-11eb-8fba-fde81aa2b50a.png" width="100%" height="100%"></p>
+<p align = "center"><img src="https://user-images.githubusercontent.com/60774392/99548935-82546b00-29fc-11eb-8fba-fde81aa2b50a.png" width="70%" height="70%"></p>
 
 ### 2. Cartoon Style Transfer
