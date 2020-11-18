@@ -7,7 +7,7 @@ System
 
 Entire System
 
-<center><img src="https://user-images.githubusercontent.com/60774392/97797417-34034600-1c60-11eb-8e7b-85f0695003b7.jpg" width="50%" height="50%"></center>
+<p align = "center"><img src="https://user-images.githubusercontent.com/60774392/97797417-34034600-1c60-11eb-8e7b-85f0695003b7.jpg" width="50%" height="50%"></p>
 
 ### 1. Key Frame Extraction
 
