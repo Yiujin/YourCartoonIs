@@ -14,3 +14,9 @@ System
 <p align = "center"><img src="https://user-images.githubusercontent.com/60774392/99548935-82546b00-29fc-11eb-8fba-fde81aa2b50a.png" width="70%" height="70%"></p>
 
 ### 2. Cartoon Style Transfer
+
+Reference
+=========
+
++ [https://github.com/hunglc007/tensorflow-yolov4-tflite][link]
+[link] : https://github.com/hunglc007/tensorflow-yolov4-tflite
