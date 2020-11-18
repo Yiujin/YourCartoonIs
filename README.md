@@ -15,7 +15,7 @@ System
 
 ### 2. Cartoon Style Transfer
 
-Reference
-=========
+### References
+-----------
 
 + https://github.com/hunglc007/tensorflow-yolov4-tflite
