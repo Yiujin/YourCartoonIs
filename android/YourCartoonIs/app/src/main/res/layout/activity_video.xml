@@ -23,11 +23,12 @@
             android:text="변환할 동영상을 업로드해주세요!"
             android:textSize="20sp" />
 
-        <VideoView
+        <ImageView
             android:id="@+id/videoView"
             android:layout_width="364dp"
             android:layout_gravity="center"
-            android:layout_height="273dp" />
+            android:layout_height="273dp"
+            android:src="@drawable/ic_launcher_foreground"/>
 
 
     </LinearLayout>
@@ -42,7 +43,7 @@
             android:id="@+id/album"
             android:layout_width="136dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="170dp"
+            android:layout_marginTop="100dp"
             android:textColor="#D06EB8"
             android:background="@drawable/button_shape"
             android:fontFamily="@font/bingre"

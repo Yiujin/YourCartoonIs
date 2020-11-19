@@ -27,6 +27,8 @@
         </activity>
         <activity android:name=".Pictransfer" >
         </activity>
+        <activity android:name=".ProgressActivity" >
+        </activity>
         <activity android:name=".VideoTransfer">
         </activity>
         <activity android:name=".Dummy">

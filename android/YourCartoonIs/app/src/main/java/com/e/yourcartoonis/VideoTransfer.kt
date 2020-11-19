@@ -1,48 +1,28 @@
 package com.e.yourcartoonis
 
 import android.app.Activity
-import android.content.Context
+import android.app.ProgressDialog
 import android.content.Intent
+import android.content.res.AssetManager
+import android.database.Cursor
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
+import android.os.Handler
+import android.provider.MediaStore
 import android.view.View
-import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_sub.*
 import kotlinx.android.synthetic.main.activity_video.*
 import kotlinx.android.synthetic.main.activity_video_select.*
-import org.opencv.android.Utils
-import org.opencv.core.Mat
-import wseemann.media.FFmpegMediaMetadataRetriever
-import android.app.ProgressDialog
-import android.content.res.AssetManager
-import android.graphics.Color
-import android.graphics.ImageFormat.JPEG
-import android.graphics.PorterDuff
-import android.os.Handler
-import android.view.DragEvent
-import android.widget.LinearLayout
-import androidx.fragment.app.Fragment
-import com.e.yourcartoonis.Collage.Collage_3_001
-import kotlinx.android.synthetic.main.collage.*
-import java.io.*
+import kotlinx.android.synthetic.main.progress.*
+import java.io.File
+import java.io.FileOutputStream
+import java.io.InputStream
 
 class VideoTransfer : AppCompatActivity() {
-    val model_name = "yolov4-tiny-416.tflite"
-    val label_file = "coco.txt"
-    var adapter : SelectAdapter? = null
-    var asset_manager: AssetManager? = null
-    init{
-        System.loadLibrary("native-lib")
-    }
-    var testprogress:ProgressDialog? = null
-    var check_progress:Boolean = false
-    var handler = Handler()
-    var thread = Runnable { testprogress?.cancel() }
-    var KeyImage : ArrayList<Bitmap>? = null
-    var recv_image : ArrayList<Bitmap>? = null
-    var CollageList : ArrayList<Int>? = null
+    private var VideoUri : Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,11 +32,14 @@ class VideoTransfer : AppCompatActivity() {
         album.setOnClickListener {
             submit_video.visibility = View.VISIBLE
 
-            testprogress = ProgressDialog.show(this, "made by soo.", "")
             val intent = Intent(Intent.ACTION_GET_CONTENT)
             intent.setType("video/*")
             startActivityForResult(intent, 2)
-            if(!check_progress) handler.postDelayed(thread,1000)
+        }
+        submit_video.setOnClickListener {
+            val intent = Intent(this,ProgressActivity::class.java)
+            intent.putExtra("VideoUri",VideoUri)
+            startActivity(intent)
         }
     }
     private fun BitmaptoFloatArray(Bitmap:Bitmap?) : FloatArray?{
@@ -73,51 +56,33 @@ class VideoTransfer : AppCompatActivity() {
     }
     override fun onActivityResult(requestCode: Int,resultCode: Int,data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        val model = YoloClassifier(this,model_name,label_file)
-        lateinit var check: Array<Boolean>
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == 2){
-                var VideoUrl : Uri? = data?.data
-                var input: InputStream? = contentResolver.openInputStream(VideoUrl!!)
+                VideoUri = data?.data
+                var id: Long = -1
+                val projection = arrayOf<String>(MediaStore.Video.Thumbnails._ID)
+                val videoCursor: Cursor? = managedQuery(VideoUri, projection, null, null, null)
 
-                KeyImage = KeyFrameExtraction(this,input!!).execute().get()
-                while(KeyImage == null) {}
-                setContentView(R.layout.activity_video_select)
-                adapter = SelectAdapter(this,KeyImage!!)
-                gridView.adapter = adapter
+                if (videoCursor != null && videoCursor.moveToNext()) {
+                    val videoIDCol: Int =
+                        videoCursor.getColumnIndex(MediaStore.Video.Thumbnails._ID)
+                    id = videoCursor.getLong(videoIDCol)
+                }
+
+                try {
+                    val options: BitmapFactory.Options = BitmapFactory.Options()
+                    options.inSampleSize = 1
+                    val curThumb: Bitmap = MediaStore.Video.Thumbnails.getThumbnail(
+                        contentResolver,
+                        id,
+                        MediaStore.Video.Thumbnails.MICRO_KIND,
+                        options
+                    ) //비트맵에 이미지가 저장된다.
+                    videoView.setImageBitmap(curThumb)
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                }
             }
-        }
-        gonext.setOnClickListener() {
-            var transfer_image=ArrayList<Bitmap>()
-            check = adapter!!.getKey()
-            for(i in 0..(KeyImage!!.size-1)){
-                if(check[i]) transfer_image.add(KeyImage!![i])
-            }
-
-            val ip = "52.151.59.153"
-            val port = 8081
-            val cons = ConnectServer(this.applicationContext, ip, port, transfer_image)
-            recv_image = cons.execute().get()
-            while(recv_image == null){}
-            var path = ArrayList<String>()
-            saveRecvtmpfile(recv_image,path)
-
-            val intent = Intent(this,MakeCollage::class.java)
-            intent.putStringArrayListExtra("path",path)
-            startActivity(intent)
-
-
-        }
-    }
-    fun saveRecvtmpfile(recv : ArrayList<Bitmap>?,path: ArrayList<String>){
-        val len = recv!!.size-1
-        for(i in 0..len){
-            val tmpFile = File.createTempFile("recv_image_${i}","jpg")
-            tmpFile.deleteOnExit()
-            val output = FileOutputStream(tmpFile)
-            recv[i].compress(Bitmap.CompressFormat.JPEG,90,output)
-            path.add(tmpFile.absolutePath)
-            output.close()
         }
     }
 }

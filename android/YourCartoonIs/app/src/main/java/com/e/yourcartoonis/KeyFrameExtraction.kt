@@ -5,6 +5,7 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
+import android.widget.ProgressBar
 import org.opencv.android.Utils
 import org.opencv.core.Mat
 import wseemann.media.FFmpegMediaMetadataRetriever
@@ -12,21 +13,32 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-class KeyFrameExtraction(context: Context,input : InputStream) : AsyncTask<Any, Int, ArrayList<Bitmap>?>(){
+class KeyFrameExtraction(context: Context,input : InputStream,progressbar:ProgressBar) : AsyncTask<Any, Int, ArrayList<Bitmap>?>(){
     private val input: InputStream
     private val model_name = "yolov4-tiny-416.tflite"
     private val label_file = "coco.txt"
     private val context: Context
     private val model : YoloClassifier
+    private val progressbar : ProgressBar
     val KeyImage = ArrayList<Bitmap>()
 
     init{
+        System.loadLibrary("native-lib")
         this.input = input
         this.context = context
+        this.progressbar = progressbar
         this.model = YoloClassifier(context,model_name,label_file)
     }
     external fun extractKeyFrame(matArrayaddr:LongArray,size:Int) : Array<IntArray>
+    override fun onPreExecute() {
+        super.onPreExecute()
+        progressbar.max = 100
+        progressbar.setProgress(0)
+    }
 
+    override fun onProgressUpdate(vararg values: Int?) {
+        progressbar.setProgress(values[0]!!.toInt())
+    }
     override fun doInBackground(vararg p0: Any?): ArrayList<Bitmap>? {
         try {
             var media = FFmpegMediaMetadataRetriever()
@@ -59,6 +71,7 @@ class KeyFrameExtraction(context: Context,input : InputStream) : AsyncTask<Any, 
                 if (frame == null)
                     break
                 bitmapList.add(frame)
+                publishProgress(i/(videotime-1)*100)
                 //Log.v("###","${i} th frame time : ${i.toLong()*1000000/3}")
             }
             val len = bitmapList.size
