@@ -40,11 +40,10 @@ class VideoTransfer : AppCompatActivity() {
     var check_progress:Boolean = false
     var handler = Handler()
     var thread = Runnable { testprogress?.cancel() }
-    val KeyImage = ArrayList<Bitmap>()
+    var KeyImage : ArrayList<Bitmap>? = null
     var recv_image : ArrayList<Bitmap>? = null
     var CollageList : ArrayList<Int>? = null
 
-    external fun extractKeyFrame(matArrayaddr:LongArray,size:Int) : Array<IntArray>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_video)
@@ -79,87 +78,20 @@ class VideoTransfer : AppCompatActivity() {
         if(resultCode == Activity.RESULT_OK){
             if(requestCode == 2){
                 var VideoUrl : Uri? = data?.data
+                var input: InputStream? = contentResolver.openInputStream(VideoUrl!!)
 
-
-                try {
-                        var input: InputStream? = contentResolver.openInputStream(VideoUrl!!)
-                        var media = FFmpegMediaMetadataRetriever()
-                        val tmpFile = File.createTempFile("tmpfile","mp4")
-                        tmpFile.deleteOnExit()
-                        val output = FileOutputStream(tmpFile)
-                        var read = 0
-                        val buffer = ByteArray(4*1024)
-                        Log.e("###","start create mp4 tmp file")
-                        while (true) {
-                            read = input!!.read(buffer,0,4*1024 -2)
-                            if( read == -1)
-                                break
-                            output.write(buffer,0,read)
-                        }
-                        output.close()
-                        Log.e("###","end create mp4 tmp file")
-                    var context: Context = this.applicationContext
-                    var path = tmpFile.absolutePath
-                    media.setDataSource(path)
-                    //getFrame(path,0)
-
-                    //var media = MediaMetadataRetriever()
-                    //media.setDataSource(path)
-                    var time = media.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)
-                    var videotime = ((Integer.parseInt(time)/1000)-1)*3
-                    var bitmapList = ArrayList<Bitmap>()
-                    for(i in 0..videotime-1) {
-                        val frame = media.getFrameAtTime(i.toLong()*1000000/3)
-                        if( frame == null)
-                            break
-                        bitmapList.add(frame)
-                        //Log.v("###","${i} th frame time : ${i.toLong()*1000000/3}")
-                    }
-                    val len = bitmapList.size
-                    var MatList = Array<Mat>(len,{ Mat() })
-                    var MatAddrList = LongArray(len,{0})
-                    for (i in 0..len-1){
-                        Utils.bitmapToMat(bitmapList[i],MatList[i])
-                        MatAddrList[i] = MatList[i].nativeObjAddr
-                    }
-                    var MInput = MatList[5]
-                    var bitmap: Bitmap? = Bitmap.createBitmap(MInput.cols(),MInput.rows(), Bitmap.Config.RGB_565)
-                    var clustersize:Int = 0
-                    var compare = extractKeyFrame(MatAddrList,clustersize)
-                    //var bitmap = BitmapFactory.decodeStream(input)
-
-                    input!!.close()
-                    check_progress=true
-                    handler.postDelayed(thread,1000) // 딜레이는 1초
-                    val tmpMatList = ArrayList<Long>()
-                    val tmpIndex = ArrayList<Int>()
-                    setContentView(R.layout.activity_video_select)
-                    var keysize = 0
-                    for (i in 0..(compare.size-1)){
-                        val classes = model.detection(MatList[compare[i][0]]!!)
-                        if( classes.contains("person"))
-                            compare[i][1] += 3
-                        if(compare[i][1] >= 0.01*videotime) {
-                            tmpMatList.add(MatList[compare[i][0]].nativeObjAddr)
-                            tmpIndex.add(compare[i][0])
-                        }
-                    }
-                    compare = extractKeyFrame(tmpMatList.toLongArray(),clustersize)
-                    for(i in 0..(compare.size-1))
-                        KeyImage.add(bitmapList[tmpIndex[compare[i][0]]])
-                    adapter = SelectAdapter(context,KeyImage)
-                    gridView.adapter = adapter
-
-                }catch(e:Exception) {
-                    e.printStackTrace()
-                }
+                KeyImage = KeyFrameExtraction(this,input!!).execute().get()
+                while(KeyImage == null) {}
+                setContentView(R.layout.activity_video_select)
+                adapter = SelectAdapter(this,KeyImage!!)
+                gridView.adapter = adapter
             }
         }
         gonext.setOnClickListener() {
             var transfer_image=ArrayList<Bitmap>()
             check = adapter!!.getKey()
-            for(i in 0..(KeyImage.size-1)){
-                if(check[i]) transfer_image.add(KeyImage[i])
+            for(i in 0..(KeyImage!!.size-1)){
+                if(check[i]) transfer_image.add(KeyImage!![i])
             }
 
             val ip = "52.151.59.153"

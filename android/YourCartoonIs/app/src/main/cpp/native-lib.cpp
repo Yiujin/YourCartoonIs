@@ -79,7 +79,7 @@ public:
 };
 
 JNIEXPORT jobjectArray JNICALL
-Java_com_e_yourcartoonis_VideoTransfer_extractKeyFrame(JNIEnv *env, jobject instance,
+Java_com_e_yourcartoonis_KeyFrameExtraction_extractKeyFrame(JNIEnv *env, jobject instance,
         jlongArray matAddrList,jint *clusterSize) {
     Mat hist1,hist2;
     jlong *addrList;
