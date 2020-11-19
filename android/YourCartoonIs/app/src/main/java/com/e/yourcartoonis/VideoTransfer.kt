@@ -149,35 +149,7 @@ class VideoTransfer : AppCompatActivity() {
                         KeyImage.add(bitmapList[tmpIndex[compare[i][0]]])
                     adapter = SelectAdapter(context,KeyImage)
                     gridView.adapter = adapter
-                    /*var imViewList = Array<ImageView>(KeyImage.size) { ImageView(this) }
-                    check=Array<Boolean>(KeyImage.size){false}
-                    for(i in 0..(KeyImage.size-1)){
-                        imViewList[i].adjustViewBounds = true
-                        imViewList[i].layoutParams=LinearLayout.LayoutParams(800,LinearLayout.LayoutParams.WRAP_CONTENT)
-                        imViewList[i].setPadding(5,5,5,5)
-                        imViewList[i].setBackgroundColor(Color.parseColor("#00000000"))
-                        imViewList[i].setImageBitmap(KeyImage[i])
-                        linear.addView(imViewList[i])
-                        imViewList[i].setOnClickListener{
-                            Log.e("###","selected img ${i}")
-                            if(check[i]){
-                                check[i]=false
-                                imViewList[i].setColorFilter(null)
-                                imViewList[i].setBackgroundColor(Color.parseColor("#00000000"))
-                            }
-                            else{
-                                check[i]=true
-                                imViewList[i].setColorFilter(Color.parseColor("#BDBDBD"),PorterDuff.Mode.MULTIPLY)
-                                imViewList[i].setBackgroundColor(Color.parseColor("#FF00FF"))
-                            }
-                        }
-                    }
-                    var MResult = Mat(MInput.rows(),MInput.cols(),MInput.type())
-                    //ConvertRGBtoGray(MInput.nativeObjAddr,MResult.nativeObjAddr)
-                    //Utils.matToBitmap(MResult,bitmap)
-                    //image_view.setImageBitmap(bitmap)
 
-*/
                 }catch(e:Exception) {
                     e.printStackTrace()
                 }
