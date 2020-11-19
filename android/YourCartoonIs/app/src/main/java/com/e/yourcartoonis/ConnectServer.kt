@@ -85,8 +85,7 @@ class ConnectServer(c: Context, Ip:String,Port:Int,Data:ArrayList<Bitmap>) : Asy
                 Log.e("###","total recv : ${totalrecv} total data size : ${data!!.size}")
                 outStream!!.write("next".toByteArray())
                 Log.e("###","sendNext")
-                BitmapArray[i] = ByteArraytoBitmap(data)!!
-                imList.add(BitmapArray[i])
+                imList.add(ByteArraytoBitmap(data)!!)
             }
             return imList
         }
