@@ -5,6 +5,8 @@ import android.graphics.Bitmap
 import android.net.Uri
 import android.os.AsyncTask
 import android.util.Log
+import android.view.View
+import android.widget.Button
 import android.widget.ProgressBar
 import org.opencv.android.Utils
 import org.opencv.core.Mat
@@ -13,20 +15,22 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-class KeyFrameExtraction(context: Context,input : InputStream,progressbar:ProgressBar) : AsyncTask<Any, Int, ArrayList<Bitmap>?>(){
+class KeyFrameExtraction(context: Context,KeyImage : ArrayList<Bitmap>,input : InputStream,progressbar:ProgressBar,next:Button) : AsyncTask<Any, Int?, ArrayList<Bitmap>?>(){
     private val input: InputStream
     private val model_name = "yolov4-tiny-416.tflite"
     private val label_file = "coco.txt"
     private val context: Context
     private val model : YoloClassifier
     private val progressbar : ProgressBar
-    val KeyImage = ArrayList<Bitmap>()
-
+    private val KeyImage : ArrayList<Bitmap>
+    private val next : Button
     init{
         System.loadLibrary("native-lib")
         this.input = input
         this.context = context
         this.progressbar = progressbar
+        this.KeyImage = KeyImage
+        this.next = next
         this.model = YoloClassifier(context,model_name,label_file)
     }
     external fun extractKeyFrame(matArrayaddr:LongArray,size:Int) : Array<IntArray>
@@ -37,7 +41,9 @@ class KeyFrameExtraction(context: Context,input : InputStream,progressbar:Progre
     }
 
     override fun onProgressUpdate(vararg values: Int?) {
+        Log.e("###","progress : ${values[0]!!.toInt()}")
         progressbar.setProgress(values[0]!!.toInt())
+        super.onProgressUpdate(*values)
     }
     override fun doInBackground(vararg p0: Any?): ArrayList<Bitmap>? {
         try {
@@ -66,17 +72,22 @@ class KeyFrameExtraction(context: Context,input : InputStream,progressbar:Progre
             var time = media.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)
             var videotime = ((Integer.parseInt(time) / 1000) - 1) * 3
             var bitmapList = ArrayList<Bitmap>()
+            var before : Int = 0
+            var current : Int = 0
+
             for (i in 0..videotime - 1) {
                 val frame = media.getFrameAtTime(i.toLong() * 1000000 / 3)
                 if (frame == null)
                     break
                 bitmapList.add(frame)
-                publishProgress(i/(videotime-1)*100)
+
+                publishProgress(((i*100) / (videotime - 1)).toInt())
                 //Log.v("###","${i} th frame time : ${i.toLong()*1000000/3}")
             }
             val len = bitmapList.size
             var MatList = Array<Mat>(len, { Mat() })
             var MatAddrList = LongArray(len, { 0 })
+
             for (i in 0..len - 1) {
                 Utils.bitmapToMat(bitmapList[i], MatList[i])
                 MatAddrList[i] = MatList[i].nativeObjAddr
@@ -109,5 +120,9 @@ class KeyFrameExtraction(context: Context,input : InputStream,progressbar:Progre
             e.printStackTrace()
         }
         return KeyImage
+    }
+    override fun onPostExecute(result: ArrayList<Bitmap>?) {
+        super.onPostExecute(result)
+        next.visibility= View.VISIBLE
     }
 }

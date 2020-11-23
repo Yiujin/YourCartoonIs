@@ -38,7 +38,7 @@ class VideoTransfer : AppCompatActivity() {
         }
         submit_video.setOnClickListener {
             val intent = Intent(this,ProgressActivity::class.java)
-            intent.putExtra("VideoUri",VideoUri)
+            intent.putExtra("VideoUri",VideoUri.toString())
             startActivity(intent)
         }
     }
