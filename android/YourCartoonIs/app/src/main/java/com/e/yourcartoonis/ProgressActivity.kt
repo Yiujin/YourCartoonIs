@@ -25,21 +25,9 @@ class ProgressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.progress)
         VideoUri = Uri.parse(intent.extras!!.getString("VideoUri"))
-        frame_progressbar.setProgress(0)
-        callFrameExtraction()
-        getresult.visibility= View.INVISIBLE
-        getresult.setOnClickListener {
-            showResult()
-        }
-    }
-    fun callFrameExtraction(){
-        val input: InputStream? = contentResolver.openInputStream(VideoUri!!)
-        KeyFrameExtraction(this,KeyImage,input!!,frame_progressbar,getresult).execute()
-        Log.e("###","done ${frame_progressbar.progress}")
-        //KeyImage = KeyFrameExtraction(this,input!!,frame_progressbar).execute().get()
-        /*
 
-        }*/
+        val input: InputStream? = contentResolver.openInputStream(VideoUri!!)
+        KeyFrameExtraction(this,KeyImage,input!!,frame_progressbar,::showResult).execute()
     }
     fun showResult(){
         lateinit var check: Array<Boolean>

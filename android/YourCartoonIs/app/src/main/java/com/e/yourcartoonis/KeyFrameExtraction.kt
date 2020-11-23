@@ -15,7 +15,7 @@ import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
 
-class KeyFrameExtraction(context: Context,KeyImage : ArrayList<Bitmap>,input : InputStream,progressbar:ProgressBar,next:Button) : AsyncTask<Any, Int?, ArrayList<Bitmap>?>(){
+class KeyFrameExtraction(context: Context,KeyImage : ArrayList<Bitmap>,input : InputStream,progressbar:ProgressBar,endF : ()->Unit) : AsyncTask<Any, Int?, ArrayList<Bitmap>?>(){
     private val input: InputStream
     private val model_name = "yolov4-tiny-416.tflite"
     private val label_file = "coco.txt"
@@ -23,14 +23,14 @@ class KeyFrameExtraction(context: Context,KeyImage : ArrayList<Bitmap>,input : I
     private val model : YoloClassifier
     private val progressbar : ProgressBar
     private val KeyImage : ArrayList<Bitmap>
-    private val next : Button
+    private val next : ()-> Unit
     init{
         System.loadLibrary("native-lib")
         this.input = input
         this.context = context
         this.progressbar = progressbar
         this.KeyImage = KeyImage
-        this.next = next
+        this.next = endF
         this.model = YoloClassifier(context,model_name,label_file)
     }
     external fun extractKeyFrame(matArrayaddr:LongArray,size:Int) : Array<IntArray>
@@ -123,6 +123,6 @@ class KeyFrameExtraction(context: Context,KeyImage : ArrayList<Bitmap>,input : I
     }
     override fun onPostExecute(result: ArrayList<Bitmap>?) {
         super.onPostExecute(result)
-        next.visibility= View.VISIBLE
+        next()
     }
 }
