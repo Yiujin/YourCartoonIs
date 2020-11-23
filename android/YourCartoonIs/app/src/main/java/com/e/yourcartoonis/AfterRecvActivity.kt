@@ -17,7 +17,7 @@ class AfterRecvActivity : AppCompatActivity() {
         setContentView(R.layout.activity_video_select)
         path = intent.getStringArrayListExtra("path")
         decodeTmpBitmapList(path, recv_image)
-        adapter = SelectAdapter(applicationContext,recv_image)
+        adapter = SelectAdapter(applicationContext,recv_image,0)
         gridView.adapter = adapter
     }
 

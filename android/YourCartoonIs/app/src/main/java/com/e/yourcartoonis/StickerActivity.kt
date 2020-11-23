@@ -1,5 +1,6 @@
 package com.e.yourcartoonis
 
+import android.app.Activity
 import android.content.ClipData
 import android.content.ClipDescription
 import android.content.Context
@@ -14,7 +15,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.collage.*
 import kotlinx.android.synthetic.main.stickerlayout.*
+import java.io.File
+import java.io.FileOutputStream
 import java.io.IOException
 import java.io.InputStream
 
@@ -32,6 +36,14 @@ class StickerActivity  : AppCompatActivity() {
         target_image.setImageBitmap(Bitmap.createScaledBitmap(recv_image[0], 1000, 1000, true))
         sticker_image_frame.setOnDragListener(DragListenerSticker(applicationContext))
         ShowSticker(applicationContext,stickerView!!).execute()
+        done.setOnClickListener {
+            sticker_image_frame.buildDrawingCache()
+            val bitmap = sticker_image_frame.getDrawingCache()
+            val path = savetmpfile(bitmap)
+            intent.putExtra("path",path)
+            setResult(Activity.RESULT_OK,intent)
+            finish()
+        }
     }
     private class ShowSticker(c: Context,sticker:LinearLayout): AsyncTask<Void, Void, String>() {
         private val context:Context
@@ -94,5 +106,14 @@ class StickerActivity  : AppCompatActivity() {
         for(i in 0..len){
             dest.add(BitmapFactory.decodeFile(path[i]))
         }
+    }
+    fun savetmpfile(recv : Bitmap) : String{
+        val tmpFile = File.createTempFile("transfer_image_${99}","jpg")
+        tmpFile.deleteOnExit()
+        val output = FileOutputStream(tmpFile)
+        recv.compress(Bitmap.CompressFormat.JPEG,90,output)
+        val path = tmpFile.absolutePath
+        output.close()
+        return path
     }
 }
