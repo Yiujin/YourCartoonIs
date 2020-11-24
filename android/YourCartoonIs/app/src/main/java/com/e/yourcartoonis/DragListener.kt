@@ -35,10 +35,18 @@ class DragListener(c:Context) : View.OnDragListener {
                     val im = PhotoView(c)
                     val path = p1.clipData.getItemAt(0).text
                     val bitmap = decodeTmpBitmap(path.toString())
-                    im.layoutParams=LinearLayout.LayoutParams(p0.width,LinearLayout.LayoutParams.WRAP_CONTENT)
-                    im.setImageBitmap(Bitmap.createScaledBitmap(bitmap, p0.width, (bitmap.height * p0.width) /bitmap.width, true))
-                    im.setOnDoubleTapListener(null)
-                    p0.addView(im)
+                    if(p0.width >= p0.height){
+                        im.layoutParams=LinearLayout.LayoutParams(p0.width,LinearLayout.LayoutParams.WRAP_CONTENT)
+                        im.setImageBitmap(Bitmap.createScaledBitmap(bitmap, p0.width, (bitmap.height * p0.width) /bitmap.width, true))
+                        im.setOnDoubleTapListener(null)
+                        p0.addView(im)
+                    }
+                    else{
+                        im.layoutParams=LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,p0.height)
+                        im.setImageBitmap(Bitmap.createScaledBitmap(bitmap, (bitmap.width * p0.height) /bitmap.height,p0.height,  true))
+                        im.setOnDoubleTapListener(null)
+                        p0.addView(im)
+                    }
                 }
                 /*
                 if(p0 is FrameLayout){

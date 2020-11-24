@@ -18,6 +18,7 @@ import android.preference.PreferenceManager
 import android.provider.DocumentsContract
 import android.provider.MediaStore
 import android.util.Log
+import android.view.View
 import android.widget.ImageView
 import com.e.yourcartoonis.R.layout.activity_main
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,6 +34,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(activity_main)
+        dummy.visibility = View.INVISIBLE
         pictransfer.setOnClickListener {
             var testprogress:ProgressDialog? = null
             testprogress = ProgressDialog.show(this, "타이틀입니다.", "메시지입니다.")

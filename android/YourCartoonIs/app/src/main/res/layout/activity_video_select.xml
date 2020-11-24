@@ -5,11 +5,16 @@
     android:layout_height = "match_parent"
     android:background="@drawable/background"
     android:orientation="vertical">
-    <Button
+    <ImageButton
         android:id="@+id/rotate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="회전"/>
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:src="@drawable/rotate_icon"
+        android:background="@null"/>
     <GridView
         android:id="@+id/gridView"
         android:layout_gravity="center"
@@ -35,7 +40,7 @@
         android:layout_gravity="center"
         android:background="@drawable/button_shape"
         android:fontFamily="@font/bingre"
-        android:text="다음으로 넘어가기"
+        android:text="Next"
         android:textColor="@color/black"
         android:textSize="15sp" />
 
