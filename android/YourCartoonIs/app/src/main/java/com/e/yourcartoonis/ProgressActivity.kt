@@ -25,6 +25,8 @@ class ProgressActivity : AppCompatActivity() {
     var KeyImage = ArrayList<Bitmap>()
     var recv_image : ArrayList<Bitmap>? = null
     val transfer_image = ArrayList<Bitmap>()
+    var bitmap_width : Int = 0
+    var bitmap_heigth : Int = 0
     private var VideoUri : Uri? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,6 +52,8 @@ class ProgressActivity : AppCompatActivity() {
             gridView.adapter = adapter
         }
         gonext.setOnClickListener() {
+            bitmap_heigth = KeyImage[0].height
+            bitmap_width = KeyImage[0].width
             check = adapter!!.getKey()
             for (i in 0..(KeyImage!!.size - 1)) {
                 if (check[i]) transfer_image.add(KeyImage!![i])
@@ -99,7 +103,7 @@ class ProgressActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if(resultCode == Activity.RESULT_OK){
             val path = data!!.getStringExtra("path").toString()
-            transfer_image[requestCode] = BitmapFactory.decodeFile(path)
+            transfer_image[requestCode] = Bitmap.createScaledBitmap(BitmapFactory.decodeFile(path),bitmap_width,bitmap_heigth,true)
             adapter = SelectAdapter(this,transfer_image,1,::goStickerActivity)
             gridView.adapter = adapter
         }
