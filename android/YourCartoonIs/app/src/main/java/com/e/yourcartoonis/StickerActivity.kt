@@ -33,7 +33,7 @@ class StickerActivity  : AppCompatActivity() {
         val asset = assets
         stickerView = sticker_linear
         decodeTmpBitmapList(path,recv_image)
-        target_image.setImageBitmap(Bitmap.createScaledBitmap(recv_image[0], 1000, 1000, true))
+        target_image.setImageBitmap(Bitmap.createScaledBitmap(recv_image[0], 1000, (recv_image[0].height * 1000) / recv_image[0].width, true))
         sticker_image_frame.setOnDragListener(DragListenerSticker(applicationContext))
         ShowSticker(applicationContext,stickerView!!).execute()
         done.setOnClickListener {

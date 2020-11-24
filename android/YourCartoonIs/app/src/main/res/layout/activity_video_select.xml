@@ -5,7 +5,11 @@
     android:layout_height = "match_parent"
     android:background="@drawable/background"
     android:orientation="vertical">
-
+    <Button
+        android:id="@+id/rotate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="회전"/>
     <GridView
         android:id="@+id/gridView"
         android:layout_gravity="center"
@@ -18,19 +22,33 @@
 
     </GridView>
 
-
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        app:layout_constraintTop_toBottomOf="@id/gridView"
+        android:layout_marginTop="40dp">
     <Button
         android:id="@+id/gonext"
         android:layout_width="150dp"
         android:layout_height="80dp"
         android:layout_gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/gridView"
-        android:layout_marginTop="40dp"
         android:background="@drawable/button_shape"
         android:fontFamily="@font/bingre"
         android:text="다음으로 넘어가기"
         android:textColor="@color/black"
         android:textSize="15sp" />
 
+    <Button
+        android:id="@+id/transfer"
+        android:layout_width="150dp"
+        android:layout_height="80dp"
+        android:layout_gravity="center"
+        android:background="@drawable/button_shape"
+        android:fontFamily="@font/bingre"
+        android:text="변환하기"
+        android:textColor="@color/black"
+        android:textSize="15sp" />
+    </FrameLayout>
 
 </LinearLayout>

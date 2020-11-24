@@ -5,6 +5,7 @@ import android.content.Intent
 import android.content.res.AssetManager
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Matrix
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -30,16 +31,24 @@ class ProgressActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.progress)
         VideoUri = Uri.parse(intent.extras!!.getString("VideoUri"))
-
         val input: InputStream? = contentResolver.openInputStream(VideoUri!!)
         KeyFrameExtraction(this,KeyImage,input!!,frame_progressbar,::showResult).execute()
     }
     fun showResult(){
         lateinit var check: Array<Boolean>
         setContentView(R.layout.activity_video_select)
+        transfer.visibility = View.INVISIBLE
         adapter = SelectAdapter(this,KeyImage!!,0)
         gridView.adapter = adapter
-
+        rotate.setOnClickListener {
+            val matrix = Matrix()
+            matrix.preRotate(90f,0f,0f)
+            for(i in 0..(KeyImage!!.size - 1)){
+                KeyImage[i] = Bitmap.createBitmap(KeyImage[i],0,0,KeyImage[i].width,KeyImage[i].height,matrix,false)
+            }
+            adapter = SelectAdapter(this,KeyImage!!,0)
+            gridView.adapter = adapter
+        }
         gonext.setOnClickListener() {
             check = adapter!!.getKey()
             for (i in 0..(KeyImage!!.size - 1)) {
@@ -48,7 +57,10 @@ class ProgressActivity : AppCompatActivity() {
             adapter = SelectAdapter(this,transfer_image,1,::goStickerActivity)
             gridView.numColumns = 2
             gridView.adapter = adapter
-            /*
+            gonext.visibility = View.INVISIBLE
+            transfer.visibility = View.VISIBLE
+        }
+        transfer.setOnClickListener {
             val ip = "52.151.59.153"
             val port = 8081
             val cons = ConnectServer(this.applicationContext, ip, port, transfer_image)
@@ -61,7 +73,6 @@ class ProgressActivity : AppCompatActivity() {
             val intent = Intent(this, MakeCollage::class.java)
             intent.putStringArrayListExtra("path", path)
             startActivity(intent)
-             */
         }
     }
     fun goStickerActivity(position: Int){
