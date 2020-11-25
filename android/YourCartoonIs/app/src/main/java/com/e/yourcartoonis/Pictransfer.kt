@@ -9,8 +9,6 @@ import android.os.Bundle
 import android.view.View.VISIBLE
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_sub.*
-import kotlinx.android.synthetic.main.activity_video_select.*
-import kotlinx.android.synthetic.main.frame_recved.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -75,7 +73,7 @@ class Pictransfer : AppCompatActivity() {
             }
             var path = ArrayList<String>()
             savetmpfile(recv_image, path)
-            val intent = Intent(this, MakeCollage::class.java)
+            val intent = Intent(this, ShowPictransferResult::class.java)
             intent.putStringArrayListExtra("path", path)
             startActivity(intent)
         }

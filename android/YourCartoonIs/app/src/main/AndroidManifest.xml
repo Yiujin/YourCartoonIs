@@ -33,6 +33,9 @@
         </activity>
         <activity android:name=".Dummy">
         </activity>
+        <activity android:name=".ShowPictransferResult">
+
+        </activity>
 
     <activity android:name=".MakeCollage">
     </activity>
