@@ -2,17 +2,19 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="560dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Collage.Collage_4_004"
-    android:layout_marginTop="20dp"
-    android:layout_marginLeft="20dp"
-    android:layout_marginRight="20dp"
-    android:layout_marginBottom="20dp">
+    android:background="#FFFFFF"
+    >
     <!-- 주석 내용 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp">
 
         <com.e.yourcartoonis.MyDiagonal
             android:id="@+id/c1"
@@ -31,7 +33,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"/>
+                android:background="#808080"/>
         </com.e.yourcartoonis.MyDiagonal>
 
         <com.e.yourcartoonis.MyDiagonal
@@ -49,7 +51,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"/>
+                android:background="#808080"/>
         </com.e.yourcartoonis.MyDiagonal>
 
 
@@ -71,7 +73,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"/>
+                android:background="#808080"/>
         </com.e.yourcartoonis.MyDiagonal>
 
         <com.e.yourcartoonis.MyDiagonal
@@ -90,7 +92,7 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#FFFFFF"/>
+                android:background="#808080"/>
         </com.e.yourcartoonis.MyDiagonal>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
