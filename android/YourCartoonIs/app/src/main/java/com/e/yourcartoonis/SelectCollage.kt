@@ -51,7 +51,7 @@ class SelectCollage : Fragment() {
         ViewList = ShowCollage(context!!,collage_frame).execute().get()
         while(ViewList == null){}
         val len = ViewList!!.size
-        for( i in 0..6){
+        for( i in 0..7){
             ViewList!![i].setOnClickListener {
                 (activity as MakeCollage).changeFragment(CollageList[i])
             }
